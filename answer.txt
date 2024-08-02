@@ -1,0 +1,27 @@
+1. Migration là gì?
+-   Migration có thể hiểu như là một version controll của DB, cho phép các thành viên trong team định nghĩa và chia sẻ các
+database schema(table, collumn).
+
+2. Hàm up() và hàm down() trong class migration dùng để làm gì?
+-   Hàm up dùng để khởi tạo bảng, cột hoặc index cho database
+-   Hàm down thực hiện các thao tác ngược lại so với hàm up
+
+3. Nêu các câu lệnh migration thông dụng mà bạn biết
+-   migration - thực thi các migration mới
+-   migration:rollback - rollback lại các migration đã thực hiện trước đó
+-   migration:reset - rollback lại tất cả các migration
+-   migration:fresh - Drop tất cả các table vào chạy migrate lại
+-   migration:status - Hiện thị status của từng migration
+-   migration:refresh - Reset và chạy lại tất cả các migration
+
+1. Mass assignment là gì?
+-   Mass assignment là một lỗ hổng xảy ra khi người dùng gửi unexpected HTTP Request field và filed đấy sẽ thay đổi
+dữ liệu trong database mà bạn không ngờ tới.
+2. Cách xử lý mass assignment trong laravel:
+- $fillable và $guarded attributes
+3. Tại sao laravel có cả thuộc tính fillable và guarded?
+- Vì Eloquent model mặc định bảo vệ DB khỏi mass assignment.
+4. Cập nhật các thuộc tính trong blacklist
+- Cập Nhật Thuộc Tính Bằng Cách Truy Cập Trực Tiếp hoặc thay đổi guarded tạm thời.
+
+
