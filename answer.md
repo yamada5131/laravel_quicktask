@@ -287,3 +287,13 @@ Route::get('/greeting', function () {
 - `edit()`: Hiển thị form chỉnh sửa
 - `update()`: Cập nhật bản ghi
 - `destroy()`: Xóa bản ghi
+
+---
+
+### Chapter7
+1. Middleware dùng để làm gì?
+    > Middleware cung cấp một cơ chế tiện lợi để kiểm tra và lọc các HTTP request đến ứng dụng của bạn. Lấy ví dụ, Laravel bao gồm một middleware để xác thực người dùng. Nếu người dùng không được xác thực, middleware sẽ chuyển hướng người dùng đến trang đăng nhập. Tuy nhiên, nếu người dùng đã được xác thực, middleware sẽ cho phép request tiếp tục vào ứng dụng.
+2. Phân biết global middleware, group middleware và route middleware
+- Global middleware: Middleware được thực thi trước tất cả các request vào ứng dụng
+- Route middleware: Middleware được chỉ định cho một route cụ thể
+- Group middleware: nhóm nhiều middleware lại với nhau và chỉ định cho một nhóm route cụ thể
