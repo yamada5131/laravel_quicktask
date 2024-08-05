@@ -37,7 +37,7 @@
 
 1. Kể tên các quan hệ trong laravel và phương thức tương ứng
 
-    - One to one:  
+    - One to one:
       In the User model:
       ``` php
        return $this->hasOne(Phone::class);
@@ -52,16 +52,16 @@
         return $this->belongsTo(Post::class);
         ```
     - Many To Many:
-        - users  
-          id - integer  
+        - users
+          id - integer
           name - string
 
-        - roles  
-          id - integer  
+        - roles
+          id - integer
           name - string
 
-        - role_user -> pivot table  
-          user_id - integer  
+        - role_user -> pivot table
+          user_id - integer
           role_id - integer
 
         - In the User model:
@@ -89,7 +89,7 @@
     $user->roles()->detach($roleId);
 
     // Detach all roles from the user...
-    $user->roles()->detach(); 
+    $user->roles()->detach();
    ```
     - `sync()` dùng để cấu tạo ra các liên kết n-n
     - `toogle()`
@@ -97,9 +97,9 @@
     - Sử dụng **pivot attribute**:
     ```php
     use App\Models\User;
-    
+
     $user = User::find(1);
-    
+
     foreach ($user->roles as $role) {
         echo $role->pivot->created_at;
     }
@@ -127,10 +127,10 @@
    <?php
 
     namespace App\Models;
-    
+
     use Illuminate\Database\Eloquent\Casts\Attribute;
     use Illuminate\Database\Eloquent\Model;
-    
+
     class User extends Model
     {
     /**
@@ -149,22 +149,22 @@
 
        ``` php
        use App\Models\User;
-   
+
        $user = User::find(1);
-       
+
        $firstName = $user->first_name;
        ```
 - **Định nghĩa mutator:** mutator sẽ **tự động** biến đổi giá trị thuộc tính của Eloquent khi nó được set. Để định nghĩa
   mutator thì thêm tham số `set`
 
-``` php 
+``` php
 <?php
- 
+
 namespace App\Models;
- 
+
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
- 
+
 class User extends Model
 {
     /**
@@ -184,9 +184,9 @@ class User extends Model
 
 ``` php
 use App\Models\User;
- 
+
 $user = User::find(1);
- 
+
 $user->first_name = 'Sally';
 ```
 
@@ -202,17 +202,17 @@ $user->first_name = 'Sally';
               khác nếu cần)
             ``` php
             <?php
-  
+
             namespace App\Models\Scopes;
-          
+
             use Illuminate\Database\Eloquent\Builder;
             use Illuminate\Database\Eloquent\Model;
             use Illuminate\Database\Eloquent\Scope;
-          
+
             class AncientScope implements Scope
             {
             /**
-          
+
             * Apply the scope to a given Eloquent query builder.
               */
               public function apply(Builder $builder, Model $model): void
@@ -220,7 +220,7 @@ $user->first_name = 'Sally';
                   $builder->where('created_at', '<', now()->subYears(2000));
               }
             }
-  
+
             ```
 - Local scope: dùng để định nghĩa những ràng buộc truy vấn thường được sử dụng -> tái sử dụng
     - Để định nghĩa local scope, thêm prefix `scope` vào trước eloquent method -> trả về query builder hoặc void
@@ -228,10 +228,10 @@ $user->first_name = 'Sally';
     <?php
 
     namespace App\Models;
-    
+
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Database\Eloquent\Model;
-    
+
     class User extends Model
     {
         /**
@@ -241,7 +241,7 @@ $user->first_name = 'Sally';
         {
             $query->where('votes', '>', 100);
         }
-    
+
         /**
          * Scope a query to only include active users.
          */
@@ -249,6 +249,20 @@ $user->first_name = 'Sally';
         {
             $query->where('active', 1);
         }
-    }       
-    
+    }
+
     ```
+---
+
+### Chapter5
+
+1. Seeder/Factory/Faker dùng để làm gì?
+- Seeder: Dùng để tạo dữ liệu mẫu thủ công vào database
+``` php
+php artisan make:seeder UserSeeder
+```
+- Factory: Dùng để thêm lượng lớn dữ liệu mẫu vào database
+- Faker: là một thư viện PHP dùng để tạo dữ liệu giả lập, phục vụ cho việc testing và seeding
+1. Khi nào nên sử dụng Seeder? Khi nào sử dụng Factory?
+- Seeder: Khi bạn cần chèn dữ liệu cụ thể, cố định vào cơ sở dữ liệu cho các mục đích như khởi tạo, cấu hình, hoặc chuẩn bị dữ liệu cho ứng dụng
+- Factory: Khi bạn cần tạo dữ liệu mẫu hoặc ngẫu nhiên cho các mục đích phát triển hoặc kiểm thử. Factory giúp tạo ra nhiều bản ghi nhanh chóng và hiệu quả hơn.
