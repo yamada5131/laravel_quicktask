@@ -49,6 +49,9 @@
                                     <button type="submit"
                                         class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</button>
                                 </form>
+                                <a href="/users/{{ $user->id }}/posts"
+                                    class="font-medium text-green-600 hover:underline">Show posts
+                                    -></a>
                             </td>
                         </tr>
                     @endforeach
