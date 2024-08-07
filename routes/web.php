@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use App\Http\Middleware\Localization;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +19,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::resources([
+        'posts' => PostController::class,
+        'users' => UserController::class,
+    ]);
 });
 
 
@@ -26,6 +33,5 @@ Route::get('language/{locale}', function ($locale) {
 
     return redirect()->back();
 });
-
 
 require __DIR__ . '/auth.php';

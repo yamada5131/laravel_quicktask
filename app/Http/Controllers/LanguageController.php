@@ -20,7 +20,7 @@ class LanguageController extends Controller
         }
         Session::put('language', $language);
 
-        // Redirect back to the previous page
+        // Redirect back to the previous <page></page>
         return redirect()->back();
     }
 }
