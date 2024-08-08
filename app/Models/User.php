@@ -65,14 +65,14 @@ class User extends Authenticatable
     protected function fullname(): Attribute
     {
         return Attribute::make(
-            get: fn(mixed $value, array $attributes) => $attributes['first_name'].' '.$attributes['last_name'],
+            get: fn (mixed $value, array $attributes) => $attributes['first_name'] . ' ' . $attributes['last_name'],
         );
     }
 
     protected function username(): Attribute
     {
         return Attribute::make(
-            set: fn(string $value) => Str::slug($value, '-'),
+            set: fn (string $value) => Str::slug($value, '-'),
         );
     }
 }
