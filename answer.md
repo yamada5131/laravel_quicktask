@@ -107,3 +107,148 @@
 
 ---
 
+### Chapter4
+
+#### **Accessors/Mutators** dùng để làm gì?
+
+- Dùng để **biến đổi dữ liệu** khi truy vấn hoặc thêm vào các mô hình thực thể (model instance). Ví dụ khi muốn mã hóa
+  một dữ liệu khi lưu trữ vào trong database và tự động giải mã khi lấy nó ra.
+
+#### Tạo Accessors and Mutators thế nào? [Laravel Docs](https://laravel.com/docs/11.x/eloquent-mutators#accessors-and-mutators)
+
+- **Định nghĩa một Accessor**
+    1. Tạo ra một protected method trong model
+    2. Đặt tên method theo kiểu "camelCase" tương ứng với cột của DB muốn áp dụng
+    3. Luôn định nghĩa kiểu trả về là `Illuminate\Database\Eloquent\Casts\Attribute`
+    4. Để định nghĩa cách mà atribute sẽ được accessed thì cung cấp một biến `get` cho constructor của
+       của `Attribute class`.
+
+   ``` php
+   <?php
+
+    namespace App\Models;
+    
+    use Illuminate\Database\Eloquent\Casts\Attribute;
+    use Illuminate\Database\Eloquent\Model;
+    
+    class User extends Model
+    {
+    /**
+    * Get the user's first_name.
+    */
+        protected function firstName(): Attribute
+        {
+            return Attribute::make(
+                get: fn (string $value) => ucfirst($value),
+            );
+        }
+    }
+   ```
+
+    - Để truy cập vào giá trị của accessor, đơn truy cập thuộc tính `first_name` trong mô hình thực thể
+
+       ``` php
+       use App\Models\User;
+   
+       $user = User::find(1);
+       
+       $firstName = $user->first_name;
+       ```
+- **Định nghĩa mutator:** mutator sẽ **tự động** biến đổi giá trị thuộc tính của Eloquent khi nó được set. Để định nghĩa
+  mutator thì thêm tham số `set`
+
+``` php 
+<?php
+ 
+namespace App\Models;
+ 
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Model;
+ 
+class User extends Model
+{
+    /**
+     * Interact with the user's first name.
+     */
+    protected function firstName(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => ucfirst($value),
+            set: fn (string $value) => strtolower($value),
+        );
+    }
+}
+```
+
+- Để sử dụng mutator chỉ cần set giá trị thuộc tính của Eloquent model:
+
+``` php
+use App\Models\User;
+ 
+$user = User::find(1);
+ 
+$user->first_name = 'Sally';
+```
+
+#### [Scope](https://laravel.com/docs/11.x/eloquent#query-scopes)
+
+##### Scope dùng để làm gì?
+
+- **Global scope:** Dùng để thêm ràng buộc cho tất cả các câu truy vấn trên một thực thể
+    - Khởi tạo: `php artisan make:scope AncientScope`
+        - Viết một cái global scope:
+            - khởi tạo -> `app/Models/Scopes` -> implement apply method(có thể có dàng buộc `where` hoặc là các câu
+              query
+              khác nếu cần)
+            ``` php
+            <?php
+  
+            namespace App\Models\Scopes;
+          
+            use Illuminate\Database\Eloquent\Builder;
+            use Illuminate\Database\Eloquent\Model;
+            use Illuminate\Database\Eloquent\Scope;
+          
+            class AncientScope implements Scope
+            {
+            /**
+          
+            * Apply the scope to a given Eloquent query builder.
+              */
+              public function apply(Builder $builder, Model $model): void
+              {
+                  $builder->where('created_at', '<', now()->subYears(2000));
+              }
+            }
+  
+            ```
+- Local scope: dùng để định nghĩa những ràng buộc truy vấn thường được sử dụng -> tái sử dụng
+    - Để định nghĩa local scope, thêm prefix `scope` vào trước eloquent method -> trả về query builder hoặc void
+    ``` php
+    <?php
+
+    namespace App\Models;
+    
+    use Illuminate\Database\Eloquent\Builder;
+    use Illuminate\Database\Eloquent\Model;
+    
+    class User extends Model
+    {
+        /**
+        * Scope a query to only include popular users.
+        */
+        public function scopePopular(Builder $query): void
+        {
+            $query->where('votes', '>', 100);
+        }
+    
+        /**
+         * Scope a query to only include active users.
+         */
+        public function scopeActive(Builder $query): void
+        {
+            $query->where('active', 1);
+        }
+    }       
+    
+    ```
