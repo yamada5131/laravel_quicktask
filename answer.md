@@ -305,3 +305,8 @@ Route::get('/greeting', function () {
 - Laravel Breeze, Laravel Jetstream, Laravel Fortify, Laravel UI, Laravel Sanctum, Laravel Passport,...
 2. Trong quicktask bạn dùng starter kit nào? Khi cần custom logic bạn sẽ làm như thế nào?
 - edit `app/Http/Controllers/Auth/*` để custom logic
+
+---
+
+### Chapter10
+- Vite đã có sẵn khi tạo project laravel bằng sail
