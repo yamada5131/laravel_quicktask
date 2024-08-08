@@ -258,11 +258,32 @@ $user->first_name = 'Sally';
 
 1. Seeder/Factory/Faker dùng để làm gì?
 - Seeder: Dùng để tạo dữ liệu mẫu thủ công vào database
-``` php
-php artisan make:seeder UserSeeder
-```
+
+    `php artisan make:seeder UserSeeder`
+
 - Factory: Dùng để thêm lượng lớn dữ liệu mẫu vào database
 - Faker: là một thư viện PHP dùng để tạo dữ liệu giả lập, phục vụ cho việc testing và seeding
 1. Khi nào nên sử dụng Seeder? Khi nào sử dụng Factory?
 - Seeder: Khi bạn cần chèn dữ liệu cụ thể, cố định vào cơ sở dữ liệu cho các mục đích như khởi tạo, cấu hình, hoặc chuẩn bị dữ liệu cho ứng dụng
 - Factory: Khi bạn cần tạo dữ liệu mẫu hoặc ngẫu nhiên cho các mục đích phát triển hoặc kiểm thử. Factory giúp tạo ra nhiều bản ghi nhanh chóng và hiệu quả hơn.
+
+---
+
+### Chapter6
+1. Mô tả cấu trúc của một route trong laravel
+- Cấu trúc cơ bản của một route trong laravel bao gồm URL và closure
+``` php
+use Illuminate\Support\Facades\Route;
+
+Route::get('/greeting', function () {
+    return 'Hello World';
+});
+```
+2. Kể tên các hàm trong Resource Controller và phương thức/công dụng tương ứng
+- `index()`: Hiển thị danh sách tất cả các bản ghi
+- `create()`: Hiển thị form tạo mới
+- `store()`: Lưu bản ghi mới
+- `show()`: Hiển thị một bản ghi cụ thể
+- `edit()`: Hiển thị form chỉnh sửa
+- `update()`: Cập nhật bản ghi
+- `destroy()`: Xóa bản ghi
