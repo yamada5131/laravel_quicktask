@@ -297,3 +297,11 @@ Route::get('/greeting', function () {
 - Global middleware: Middleware được thực thi trước tất cả các request vào ứng dụng
 - Route middleware: Middleware được chỉ định cho một route cụ thể
 - Group middleware: nhóm nhiều middleware lại với nhau và chỉ định cho một nhóm route cụ thể
+
+---
+
+### Chapter8
+1. Bạn biết những starter kit authentication nào trong laravel?
+- Laravel Breeze, Laravel Jetstream, Laravel Fortify, Laravel UI, Laravel Sanctum, Laravel Passport,...
+2. Trong quicktask bạn dùng starter kit nào? Khi cần custom logic bạn sẽ làm như thế nào?
+- edit `app/Http/Controllers/Auth/*` để custom logic
