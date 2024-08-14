@@ -20,6 +20,7 @@ class PostFactory extends Factory
             'title' => $this->faker->sentence,
             'user_id' => 1,
             'content' => $this->faker->paragraph,
+            'category' => 'general',
         ];
     }
 }

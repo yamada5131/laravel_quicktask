@@ -16,23 +16,33 @@ class PostController extends Controller
         $posts = $user->posts;
         return view('posts.index', [
             'posts' => $posts,
+            'user' => $user
         ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(User $user)
     {
-        //
+        return view('posts.create', [
+            'user' => $user
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, User $user)
     {
-        //
+        Post::create([
+            'title' => $request->title,
+            'content' => $request->content,
+            'category' => $request->category,
+            'user_id' => $user->id
+        ]);
+
+        return redirect("/users/{$user->id}/posts");
     }
 
 

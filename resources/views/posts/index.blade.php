@@ -4,6 +4,11 @@
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 {{ __('Posts Listings') }}
             </h2>
+            <a class="block bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-md text-white"
+                href="/users/{{ $user->id }}/posts/create">
+                Create New Post
+            </a>
+
         </div>
 
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-4">

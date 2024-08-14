@@ -3,8 +3,8 @@
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\CheckAdmin;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\App;
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,14 +23,16 @@ Route::middleware('auth')->group(function () {
         'users' => UserController::class,
     ]);
 
-    Route::get('/users/{user}/posts', [PostController::class, 'index']);
+    Route::get('/users/{user}/posts', [PostController::class, 'index'])->middleware(CheckAdmin::class);
+    Route::get('/users/{user}/posts/create', [PostController::class, 'create'])->middleware(CheckAdmin::class);
+    Route::post('/users/{user}/posts', [PostController::class, 'store'])->middleware(CheckAdmin::class);
 });
 
-Route::get('language/{locale}', function ($locale) {
-    App::setLocale($locale);
-    Session::put('locale', $locale);
-
-    return redirect()->back();
-});
+// Route::get('language/{locale}', function ($locale) {
+//     App::setLocale($locale);
+//     Session::put('locale', $locale);
+//
+//     return redirect()->back();
+// });
 
 require __DIR__ . '/auth.php';
