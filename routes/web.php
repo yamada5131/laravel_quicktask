@@ -1,11 +1,10 @@
 <?php
 
-use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
-use App\Http\Middleware\Localization;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\App;
 
 Route::get('/', function () {
     return view('welcome');
@@ -26,7 +25,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/users/{user}/posts', [PostController::class, 'index']);
 });
-
 
 Route::get('language/{locale}', function ($locale) {
     App::setLocale($locale);

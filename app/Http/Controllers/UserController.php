@@ -3,14 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * @return View
      */
-    public function index()
+    public function index(): View
     {
         return view('users.index', [
             'users' => User::all(),
@@ -19,8 +22,9 @@ class UserController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
         // return view for creating a new user
         return view('users.create');
@@ -28,8 +32,9 @@ class UserController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         // Validate the request from user
         // ...
@@ -47,16 +52,18 @@ class UserController extends Controller
 
     /**
      * Display the specified resource.
+     * @return void
      */
-    public function show(string $id)
+    public function show(string $id): void
     {
         //
     }
 
     /**
      * Show the form for editing the specified resource.
+     * @return View
      */
-    public function edit(User $user)
+    public function edit(User $user): View
     {
         // return view for update user
         return view('users.edit', ['user' => $user]);
@@ -64,8 +71,9 @@ class UserController extends Controller
 
     /**
      * Update the specified resource in storage.
+     * @return RedirectResponse
      */
-    public function update(User $user)
+    public function update(User $user): RedirectResponse
     {
         // Authorize the user
         // ...
@@ -85,8 +93,9 @@ class UserController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * @return RedirectResponse
      */
-    public function destroy(User $user)
+    public function destroy(User $user): RedirectResponse
     {
         // authorize the user
         // ...
